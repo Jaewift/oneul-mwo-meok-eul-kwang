@@ -1,66 +1,89 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div style="text-align: center; margin-top: 3rem;">
-        <h1 style="color: #a31a0b">오늘 뭐먹을광?</h1>
-        <h5 style="color: #a31a0b">(필터)</h5>
-        <div class="card text-white bg-secondary mb-3" style="width: 30rem; height: 0.1rem; margin: auto;"></div>
+    <!-- 위 상단바 시작 -->
+    <div class="mb-lg-5"   style="text-align: center; margin-top: 3rem;">
+        <div style="text-align: right;">
+            <h1 style="color: #a31a0b; font-size: 4rem; text-align: center;">오늘 뭐먹을광?</h1>
+            <div class="btn-group-vertical">
+
+
+            </div>
+        </div>
+            <!--<button class="btn btn-primary">버튼?</button>-->
+
+            <h1 style="color: #a31a0b; text-align: center;">(필터)</h1>
+
+
+        <div class="card-body text-white mb-3" style="width: 40rem; height: 0.2rem; margin: auto; background-color: gray"></div>
     </div>
+    <!-- 위 상단바 끝 -->
 
-    <div style="margin-top: 1rem;">
 
-        <div class="card border-secondary mb-3" style="max-width: 50rem; margin: auto; border: none;">
 
-            <div class="card-body" style="padding-top: 4rem; text-align: center;">
-                <div class="bs-component mb-1">
-                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+    <div>
+
+        <!-- 오른쪽 화면 이동 바 시작-->
+        <div style="text-align: right; position: absolute; right: 10rem;" class="btn-group-vertical">
+            <button onclick="location.href={% url 'kweat:questions' %}" type="button" class="btn btn-danger mb-1" style="height: 6rem; width: 4rem;">
+                스무 고개
+            </button>
+            <button onclick="location.href={% url 'kweat:roulette' %}" type="button" class="btn btn-danger" style="height: 6rem; width: 4rem;">
+                룰렛
+            </button>
+        </div>
+        <!-- 오른쪽 화면 이동 바 끝-->
+
+        <div class="card border-secondary mb-3" style="max-width: 50rem; margin: auto; border: none; background-color: antiquewhite;">
+
+            <div class="card-body" style=" text-align: center;">
+                <div class="bs-component mb-1" >
+                    <div class="btn-group " role="group" aria-label="Basic radio toggle button group" style="background-color: white; width:35rem; height: 2.5rem;">
                         <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked="">
-                        <label class="btn btn-outline-primary" for="btnradio1">아무거나</label>
+                        <label class="btn btn-outline-info" for="btnradio1">아무거나</label>
                         <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btnradio2">한식</label>
+                        <label class="btn btn-outline-info" for="btnradio2">한식</label>
                         <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btnradio3">양식</label>
+                        <label class="btn btn-outline-info" for="btnradio3">양식</label>
                         <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btnradio4">중식</label>
+                        <label class="btn btn-outline-info" for="btnradio4">중식</label>
                         <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btnradio5">일식</label>
+                        <label class="btn btn-outline-info" for="btnradio5">일식</label>
                         <input type="radio" class="btn-check" name="btnradio" id="btnradio6" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btnradio6">아시아</label>
+                        <label class="btn btn-outline-info" for="btnradio6">아시아</label>
                     </div>
                 </div>
 
 
                 <div class="bs-component mb-1">
-                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="background-color: white; width:35rem; height: 2.5rem;">
                         <input type="radio" class="btn-check" name="btnradio1" id="btnradio11" autocomplete="off" checked="">
-                        <label class="btn btn-outline-warning" for="btnradio11">아무거나</label>
+                        <label class="btn btn-outline-primary" for="btnradio11">아무거나</label>
                         <input type="radio" class="btn-check" name="btnradio1" id="btnradio22" autocomplete="off">
-                        <label class="btn btn-outline-warning" for="btnradio22">한식</label>
+                        <label class="btn btn-outline-primary" for="btnradio22">5천원이하</label>
                         <input type="radio" class="btn-check" name="btnradio1" id="btnradio33" autocomplete="off">
-                        <label class="btn btn-outline-warning" for="btnradio33">양식</label>
+                        <label class="btn btn-outline-primary" for="btnradio33">1만원이하</label>
                         <input type="radio" class="btn-check" name="btnradio1" id="btnradio44" autocomplete="off">
-                        <label class="btn btn-outline-warning" for="btnradio44">중식</label>
+                        <label class="btn btn-outline-primary" for="btnradio44">1만5천이하</label>
                         <input type="radio" class="btn-check" name="btnradio1" id="btnradio55" autocomplete="off">
-                        <label class="btn btn-outline-warning" for="btnradio55">일식</label>
-                        <input type="radio" class="btn-check" name="btnradio1" id="btnradio66" autocomplete="off">
-                        <label class="btn btn-outline-warning" for="btnradio66">아시아</label>
+                        <label class="btn btn-outline-primary" for="btnradio55">2만원이상??</label>
                     </div>
                 </div>
 
                 <div class="bs-component mb-1">
-                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="background-color: white; width:35rem; height: 2.5rem;">
                         <input type="radio" class="btn-check" name="btnradio2" id="btnradio111" autocomplete="off" checked="">
-                        <label class="btn btn-outline-danger" for="btnradio111">아무거나</label>
+                        <label class="btn btn-outline-success" for="btnradio111">아무거나</label>
                         <input type="radio" class="btn-check" name="btnradio2" id="btnradio222" autocomplete="off">
-                        <label class="btn btn-outline-danger" for="btnradio222">한식</label>
+                        <label class="btn btn-outline-success" for="btnradio222">100m이내</label>
                         <input type="radio" class="btn-check" name="btnradio2" id="btnradio333" autocomplete="off">
-                        <label class="btn btn-outline-danger" for="btnradio333">양식</label>
+                        <label class="btn btn-outline-success" for="btnradio333">200m이내</label>
                         <input type="radio" class="btn-check" name="btnradio2" id="btnradio444" autocomplete="off">
-                        <label class="btn btn-outline-danger" for="btnradio444">중식</label>
+                        <label class="btn btn-outline-success" for="btnradio444">300m이내</label>
                         <input type="radio" class="btn-check" name="btnradio2" id="btnradio555" autocomplete="off">
-                        <label class="btn btn-outline-danger" for="btnradio555">일식</label>
+                        <label class="btn btn-outline-success" for="btnradio555">400m이내</label>
                         <input type="radio" class="btn-check" name="btnradio2" id="btnradio666" autocomplete="off">
-                        <label class="btn btn-outline-danger" for="btnradio666">아시아</label>
+                        <label class="btn btn-outline-success" for="btnradio666">그외</label>
                     </div>
                 </div>
 
@@ -68,11 +91,11 @@
 
             <div class="card-body" style="margin: auto">
 
-                <div class="card border-danger mb-3" style="width: 30rem; height: 20rem;">
+                <div class="card border-danger mb-3" style="width: 30rem; height: 20rem; background-color: white;">
                     <div class="card-body" style="text-align: center; padding : 5rem;">
-                        <p class="card-text">무슨무슨 음식점</p>
-                        <p class="card-text">평균? 가격?</p>
-                        <p class="card-text">바로 앞에 있어?</p>
+                        <p class="card-text">{{ res_object.Res_name }}</p>
+                        <p class="card-text">{{ res_object.id }}</p>
+                        <p class="card-text">{{ res_object.distance }}</p>
                     </div>
                 </div>
                 <div style="text-align: right;">

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <!-- 위 상단바 시작 -->
+    <div class="mb-lg-5"   style="text-align: center; margin-top: 3rem;">
+        <div>
+            <h1 style="color: #a31a0b; font-size: 4rem">오늘 뭐먹을광?</h1>
+            <!--<button class="btn btn-primary">버튼?</button>-->
+        </div>
+        <h1 style="color: #a31a0b;">(스무 고개)</h1>
+        <div class="card-body text-white mb-3" style="width: 40rem; height: 0.2rem; margin: auto; background-color: gray"></div>
+    </div>
+    <!-- 위 상단바 끝 -->
+
+    <div>
+
+        <!-- 오른쪽 화면 이동 바 시작-->
+        <div style="text-align: right; position: absolute; right: 10rem;" class="btn-group-vertical">
+            <button onclick="location.href={% url 'kweat:filter' %}" type="button" class="btn btn-danger mb-1" style="height: 6rem; width: 4rem;">
+                필터
+            </button>
+            <button onclick="location.href={% url 'kweat:roulette' %}" type="button" class="btn btn-danger" style="height: 6rem; width: 4rem;">
+                룰렛
+            </button>
+        </div>
+        <!-- 오른쪽 화면 이동 바 끝-->
+
+        <div style="display:flex; max-width: 50rem; margin: auto; border: none; background-color: antiquewhite;">
+
+            <!-- 사진? 넣을 곳 시작-->
+            <div class="card border-danger mb-3" style="flex: 2; display: inline; margin-right: 3rem;">
+                <div class="card-body" style="height: 30rem; " >
+                </div>
+            </div>
+            <!-- 사진? 넣을 곳 끝-->
+            <div style="flex: 1;">
+                <div class="card border-danger" style="height: 20%;">
+
+                </div>
+                <div style="height: 45%;">
+                    <!--여긴 빈공간-->
+                </div>
+                <div class="mb-3" style="text-align: center;">
+                    <button type="button" class="btn btn-danger" style="width: 70%;">네??</button>
+                </div>
+                <div class="mb-3" style="text-align: center;">
+                    <button type="button" class="btn btn-danger" style="width: 70%;">잘 모르겟어요?</button>
+                </div>
+                <div class="mb-3" style="text-align: center;">
+                    <button type="button" class="btn btn-danger" style="width: 70%;">아니요?</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <!-- 위 상단바 시작 -->
+    <div class="mb-lg-5"   style="text-align: center; margin-top: 3rem;">
+        <div>
+            <h1 style="color: #a31a0b; font-size: 4rem">오늘 뭐먹을광?</h1>
+            <!--<button class="btn btn-primary">버튼?</button>-->
+        </div>
+        <h1 style="color: #a31a0b;">(룰렛)</h1>
+        <div class="card-body text-white mb-3" style="width: 40rem; height: 0.2rem; margin: auto; background-color: gray"></div>
+    </div>
+    <!-- 위 상단바 끝 -->
+
+    <div>
+        <!-- 오른쪽 화면 이동 바 시작-->
+        <div style="text-align: right; position: absolute; right: 10rem;" class="btn-group-vertical">
+            <button onclick="location.href={% url 'kweat:filter' %}" type="button" class="btn btn-danger mb-1" style="height: 6rem; width: 4rem;">
+                필터
+            </button>
+            <button onclick="location.href={% url 'kweat:questions' %}" type="button" class="btn btn-danger" style="height: 6rem; width: 4rem;">
+                스무 고개
+            </button>
+        </div>
+         <!-- 오른쪽 화면 이동 바 끝-->
+
+        <div class="card border-secondary mb-3" style="max-width: 50rem; margin: auto; border: none; background-color: antiquewhite;">
+
+            <div class="card-body" style="text-align: left;">
+                <h4 style="display: inline;"> 옵션 개수</h4>
+                <button type="button" class="btn btn-light" style="display: inline;">
+                    -
+                </button>
+                <p style="display: inline;">
+                    1
+                </p>
+                <button type="button" class="btn btn-light" style="display: inline;">
+                    +
+                </button>
+            </div>
+
+            <!-- 룰렛 넣을 곳 시작-->
+            <div class="card border-danger mb-3">
+                <div class="card-body" style="height: 30rem;" >
+                </div>
+            </div>
+            <!-- 룰렛 넣을 곳 끝-->
+
+            <div style="text-align: center;">
+                <button type="button" class="btn btn-danger" style="">룰렛 돌리기</button>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+{% endblock %}
