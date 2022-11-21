@@ -46,7 +46,7 @@
     
 ### 4. 문의사항 연락처, 개발한 사람들, 참조 출처
 
-## Contributors
+# Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
