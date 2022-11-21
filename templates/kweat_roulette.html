@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
     <style>
@@ -37,7 +37,10 @@
 
     <!-- 위 상단바 시작 -->
     <div class="mb-lg-5" style="text-align: center; margin-top: 3rem;">
-        <h1 style="color: #a31a0b; font-family:BMHANNAPro; font-size: 4rem">오늘 뭐먹을광?</h1>
+        <img src="{%static 'img/KWLogo.png'%}" style="max-width: 6.5%;">
+        <div style="display: inline-table;">
+        <h1 style="color: #a31a0b; font-size: 4rem; font-family:BMHANNAPro;">오늘 뭐먹을광?</h1>
+        </div>
         <h1 style="color: #a31a0b; font-family:BMHANNAPro;">(룰렛)</h1>
         <div class="card-body text-white mb-3" style="width: 40rem; height: 0.2rem; margin: auto; background-color: gray"></div>
     </div>
