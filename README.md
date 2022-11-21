@@ -46,7 +46,7 @@
     
 ### 4. 문의사항 연락처, 개발한 사람들, 참조 출처
 
-# Contributors
+##### Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -65,7 +65,7 @@
   </tr>
 </table>
 
-# Contact
+##### Contact
      사이트를 이용하면서 문의사항이 있거나 추가 개발에 관해 문의할 것이 있는 경우 아래의 이메일로 연락바랍니다.
      chleogks9808@naver.com
      
