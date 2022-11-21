@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig host="43.201.115.212" id="89e8b413-55fe-4550-90fd-1169dddc0fc9" keyPath="C:\Users\chleo\OneDrive\바탕 화면\EC2\UMC_Server_a.ppk" port="22" nameFormat="DESCRIPTIVE" username="ubuntu" useOpenSSHConfig="true" />
+    </configs>
+  </component>
+</project>

@@ -1,0 +1,307 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content%}
+  <style>
+    @font-face {
+        font-family: 'BMHANNAPro';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.0/BMHANNAPro.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'Ansungtangmyun-Bold';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/Ansungtangmyun-Bold.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'PuradakGentleGothicR';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.1/PuradakGentleGothicR.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+
+
+
+    <!-- 위 상단바 시작 -->
+    <div class="mb-lg-5" style="text-align: center; margin-top: 3rem;">
+        <h1 style="color: #a31a0b; font-size: 4rem; text-align: center; font-family:BMHANNAPro;">오늘 뭐먹을광?</h1>
+        <h1 style="color: #a31a0b; text-align: center;font-family:BMHANNAPro; ">(필터)</h1>
+        <div class="card-body text-white mb-3"
+             style="width: 40rem; height: 0.2rem; margin: auto; background-color: gray"></div>
+    </div>
+    <!-- 위 상단바 끝 -->
+
+
+
+    <div>
+
+        <!-- 오른쪽 화면 이동 바 시작-->
+        <div style=" text-align: right; position: absolute; right: 1rem;" class="btn-group-vertical">
+            <button onclick="location.href={% url 'kweat:questions' %}" type="button" class="btn btn-danger mb-1"
+                    style="height: 6rem; width: 4rem; ">
+                스무 고개
+            </button>
+            <button onclick="location.href={% url 'kweat:roulette' %}" type="button" class="btn btn-danger"
+                    style="height: 6rem; width: 4rem; ">
+                룰렛
+            </button>
+        </div>
+        <!-- 오른쪽 화면 이동 바 끝-->
+
+        <div class="card border-secondary mb-3"
+             style="max-width: 50rem; margin: auto; border: none; background-color: antiquewhite;">
+
+            <div class="card-body" style=" text-align: center;">
+                <div class="bs-component mb-1">
+                    <div class="btn-group " role="group" aria-label="Basic radio toggle button group"
+                         style="background-color: white; width:35rem; height: 2.5rem; font-family:Ansungtangmyun-Bold;">
+                        <input type="radio" class="btn-check" value="아무거나" name="category" id="category1"
+                               autocomplete="off" checked="">
+                        <label class="btn btn-outline-info" for="category1">아무거나</label>
+                        <input type="radio" class="btn-check" value="한식" name="category" id="category2"
+                               autocomplete="off">
+                        <label class="btn btn-outline-info" for="category2">한식</label>
+                        <input type="radio" class="btn-check" value="양식" name="category" id="category3"
+                               autocomplete="off">
+                        <label class="btn btn-outline-info" for="category3">양식</label>
+                        <input type="radio" class="btn-check" value="중식" name="category" id="category4"
+                               autocomplete="off">
+                        <label class="btn btn-outline-info" for="category4">중식</label>
+                        <input type="radio" class="btn-check" value="일식" name="category" id="category5"
+                               autocomplete="off">
+                        <label class="btn btn-outline-info" for="category5">일식</label>
+                        <input type="radio" class="btn-check" value="아시아" name="category" id="category6"
+                               autocomplete="off">
+                        <label class="btn btn-outline-info" for="category6">아시아</label>
+                    </div>
+                </div>
+
+
+                <div class="bs-component mb-1">
+                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group"
+                         style="background-color: white; width:35rem; height: 2.5rem; font-family:Ansungtangmyun-Bold;">
+                        <input type="radio" class="btn-check" value="아무거나" name="price" id="price1" autocomplete="off"
+                               checked="">
+                        <label class="btn btn-outline-primary" for="price1">아무거나</label>
+                        <input type="radio" class="btn-check" value="5000" name="price" id="price2" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="price2">5천원 이하</label>
+                        <input type="radio" class="btn-check" value="10000" name="price" id="price3" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="price3">1만원 이하</label>
+                        <input type="radio" class="btn-check" value="15000" name="price" id="price4" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="price4">1만5천 이하</label>
+                        <input type="radio" class="btn-check" value="20000" name="price" id="price5" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="price5">2만원 이하</label>
+                    </div>
+                </div>
+
+                <div class="bs-component mb-1">
+                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group"
+                         style="background-color: white; width:35rem; height: 2.5rem; font-family:Ansungtangmyun-Bold;  ">
+                        <input type="radio" class="btn-check" value="아무거나" name="distance" id="distance1"
+                               autocomplete="off" checked="">
+                        <label class="btn btn-outline-success" for="distance1" style="font-size: 0.9rem;">아무거나</label>
+                        <input type="radio" class="btn-check" value="100" name="distance" id="distance2"
+                               autocomplete="off">
+                        <label class="btn btn-outline-success" for="distance2" style="font-size: 0.9rem;">100m이내</label>
+                        <input type="radio" class="btn-check" value="200" name="distance" id="distance3"
+                               autocomplete="off">
+                        <label class="btn btn-outline-success" for="distance3" style="font-size: 0.9rem;">200m이내</label>
+                        <input type="radio" class="btn-check" value="300" name="distance" id="distance4"
+                               autocomplete="off">
+                        <label class="btn btn-outline-success" for="distance4" style="font-size: 0.9rem;">300m이내</label>
+                        <input type="radio" class="btn-check" value="400" name="distance" id="distance5"
+                               autocomplete="off">
+                        <label class="btn btn-outline-success" for="distance5" style="font-size: 0.9rem;">400m이내</label>
+                        <input type="radio" class="btn-check" value="500" name="distance" id="distance6"
+                               autocomplete="off">
+                        <label class="btn btn-outline-success" for="distance6" style="font-size: 0.9rem;">500m이내</label>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="card-body" style="margin: auto">
+                <div class="card border-danger mb-3" style="width: 30rem; height: 20rem; background-color: white;">
+                    <div class="card-body" style="text-align: center; font-family: PuradakGentleGothicR; padding : 5rem;">
+
+                        <span class="res_name"></span><br>
+                        <span class="res_distance"></span><br>
+                        <span class="menu_name"></span><br>
+                        <span class="menu_price"></span><br>
+                        <span class="resultOfCategory"></span>
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <button type="button" class="btn btn-danger" style="font-family: Ansungtangmyun-Bold;
+" onclick="result_check()">결과 보기</button>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        const categoryNodeList //
+            = document.getElementsByName('category'); // 이 함수는 태그의 이름을 통하여 접근한다.
+        const priceNodeList
+            = document.getElementsByName('price');
+        const distanceNodeList
+            = document.getElementsByName('distance');
+
+        let name = document.getElementsByClassName("res_name")[0]; // 식당 명 출력 변수
+        let distance = document.getElementsByClassName("res_distance")[0]; // 거리 출력 변수
+        let menu_name = document.getElementsByClassName("menu_name")[0]; // 메뉴 이름 출력 변수
+        let price = document.getElementsByClassName("menu_price")[0]; // 가격 출력 변수
+        let resultOfCategory = document.getElementsByClassName("resultOfCategory")[0]; // 결과 출력 변수
+
+
+        let res = [
+            {% for i in res_object %}
+                {
+                    id: "{{ i.id }}",
+                    name: "{{ i.Res_name }}",
+                    category: "{{ i.category }}",
+                    distance: {{ i.distance }},
+                },
+            {% endfor %}
+        ]
+
+        let menu = [
+            {% for i in menu_object %}
+                {
+                    res_id: "{{ i.Res_id.id }}",
+                    id: "{{ i.id }}",
+                    Menu_name: "{{ i.Menu_name }}",
+                    price: "{{ i.price }}",
+                },
+            {% endfor %}
+        ]
+
+        let categoryResultArray = [];
+        let distanceResultArray = [];
+        let priceResultArray = [];                   // 각 함수 실행시 마다 객체 걸러짐 (각각 배열에다 저장)
+        let i1 = 0; //category 갯수
+        let i2 = 0; //distance 갯수
+        let i3 = 0; //price 개수
+
+        function filter_category() {
+            let category_filter;
+
+            categoryNodeList.forEach((node) => {
+                if (node.checked) {
+                    category_filter = node.value;   // 아무거나 ,한식, 양식 , 중식, 아시아
+                }
+            })
+
+            if (category_filter == "아무거나") {
+                for (let j in res) {
+                    categoryResultArray[i1] = res[j];
+                    i1++;
+                }
+            } else {
+                for (let j in res) {
+                    if (res[j].category == category_filter) {
+                        categoryResultArray[i1] = res[j];
+                        i1++;
+                    }
+                }
+            }
+        }
+
+        function filter_distance() {
+            let distance_filter;
+            distanceNodeList.forEach((node) => {
+                if (node.checked) {
+                    distance_filter = node.value;   // 아무거나 ,100, 200, 300, 400, 그외
+                }
+            })
+
+            if (distance_filter == "아무거나") {
+                for (let j in categoryResultArray) {
+                    distanceResultArray[i2] = categoryResultArray[j];
+                    i2++;
+                }
+            } else {
+                for (let j in categoryResultArray) {
+                    if (categoryResultArray[j].distance <= distance_filter) {
+                        distanceResultArray[i2] = categoryResultArray[j];
+                        i2++;
+                    }
+                }
+            }
+        }
+
+        function filter_price(random) {
+            let price_filter;
+
+            priceNodeList.forEach((node) => {
+                if (node.checked) {
+                    price_filter = node.value;   // 아무거나 ,5000, 10000, 150000,
+                }
+            })
+            if(i2 != 0) {
+                let a = random % i2;
+
+                if (price_filter == "아무거나") {
+                    for (let j in menu) {
+                        if (menu[j].res_id == distanceResultArray[a].id) {
+                            priceResultArray[i3] = menu[j];
+                            i3++;
+                        }
+                    }
+                } else {
+                    for (let j in menu) {
+                        if (menu[j].res_id == distanceResultArray[a].id) {
+                            if (parseInt(menu[j].price) <= parseInt(price_filter)) {
+                                priceResultArray[i3] = menu[j];
+                                i3++;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+
+            function result_check() {
+                const count_res = Math.floor(Math.random() * 35) + 1; // 총 식당 갯수
+
+                filter_category();
+                filter_distance();
+                filter_price(count_res);
+                if(i2 == 0){
+                    name.innerText = "해당되는 조건이 없습니다.";
+                    distance.innerText = "2";
+                    menu_name.innerText = "";
+                    price.innerText = "";
+                }
+                else {
+                    const count_menu = Math.floor(Math.random() * i3) + 1;
+                    name.innerText = "식당명 : " + distanceResultArray[count_res % i2].name;
+                    distance.innerText = "거리 : " + distanceResultArray[count_res % i2].distance;
+                    if(i3 != 0) {
+                        menu_name.innerText = " 메뉴 이름 : " + priceResultArray[count_menu % i3].Menu_name;
+                        price.innerText = "가격 : " + priceResultArray[count_menu % i3].price;
+                    }
+                    else{
+                        menu_name.innerText="가격에 맞는 메뉴는 없습니다.";
+                        price.innerText = "";
+                    }
+                }
+                //resultOfCategory.innerText = "총 찾은 갯수 : " + i2 + "\t현재 id: " + count_res;
+                //변수 초기화
+                categoryResultArray = [];
+                distanceResultArray = [];
+                priceResultArray = [];
+                i1 = 0; //category 갯수
+                i2 = 0; //distance 갯수
+                i3 = 0; //price 개수
+            }
+
+    </script>
+
+{% endblock %}

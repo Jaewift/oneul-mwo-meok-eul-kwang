@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <style>
+    @font-face {
+        font-family: 'BMHANNAPro';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.0/BMHANNAPro.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'Ansungtangmyun-Bold';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/Ansungtangmyun-Bold.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'PuradakGentleGothicR';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.1/PuradakGentleGothicR.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    #area {
+        position: relative;
+        width: 120%;
+        padding-bottom: 56.25%;
+    }
+
+    #video {
+        position: absolute;
+        width: 83%;
+        height: 300%;
+    }
+    </style>
+
+    <!-- 위 상단바 시작 -->
+    <div class="mb-lg-5" style="text-align: center; margin-top: 3rem;">
+        <h1 style="color: #a31a0b; font-family:BMHANNAPro; font-size: 4rem">오늘 뭐먹을광?</h1>
+        <h1 style="color: #a31a0b; font-family:BMHANNAPro;">(룰렛)</h1>
+        <div class="card-body text-white mb-3" style="width: 40rem; height: 0.2rem; margin: auto; background-color: gray"></div>
+    </div>
+    <!-- 위 상단바 끝 -->
+
+    <div>
+        <!-- 오른쪽 화면 이동 바 시작-->
+        <div style="text-align: right; position: absolute; right: 1rem;" class="btn-group-vertical">
+            <button onclick="location.href={% url 'kweat:filter' %}" type="button" class="btn btn-danger mb-1" style="height: 6rem; width: 4rem;">
+                필터
+            </button>
+            <button onclick="location.href={% url 'kweat:questions' %}" type="button" class="btn btn-danger" style="height: 6rem; width: 4rem;">
+                스무 고개
+            </button>
+        </div>
+         <!-- 오른쪽 화면 이동 바 끝-->
+
+        <div class="card border-secondary mb-3" style="max-width: 50rem; margin: auto; border: none; background-color: antiquewhite;">
+
+            <div class="card-body" style="text-align: center;">
+                <h2 style="display: inline; font-family:Ansungtangmyun-Bold;"> 랜덤음식 룰렛 돌리기</h2>
+
+                <p style="display: inline;"></p>
+                <div class="manual-text" style="position: relative; font-family: PuradakGentleGothicR;">
+                    <br> 사용법: 룰렛에 추가하고 싶은 항목을 빈칸에 입력하신 후 엔터를 누르세요.
+                </div>
+            </div>
+
+            <!— 룰렛 넣을 곳 시작—>
+
+                <div class="card-body">
+                    <span class="align-middle">
+                    <div id = "area">
+                        <iframe id="video" src="https://dolimpan.netlify.app/"></iframe>
+                    </div>
+                    </span>
+
+                </div>
+
+            <!— 룰렛 넣을 곳 끝—>
+
+
+
+        </div>
+
+    </div>
+
+
+{% endblock %}

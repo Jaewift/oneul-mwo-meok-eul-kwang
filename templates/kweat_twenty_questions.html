@@ -1,0 +1,602 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <style>
+    @font-face {
+        font-family: 'BMHANNAPro';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.0/BMHANNAPro.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'Ansungtangmyun-Bold';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/Ansungtangmyun-Bold.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'PuradakGentleGothicR';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.1/PuradakGentleGothicR.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+    }
+    </style>
+
+
+    <!-- 위 상단바 시작 -->
+    <div class="mb-lg-5"   style="text-align: center; margin-top: 3rem;">
+        <h1 style="color: #a31a0b; font-size: 4rem; font-family:BMHANNAPro;">오늘 뭐먹을광?</h1>
+        <h1 style="color: #a31a0b; font-family:BMHANNAPro; ">(스무 고개)</h1>
+        <div class="card-body text-white mb-3" style="width: 40rem; height: 0.2rem; margin: auto; background-color: gray"></div>
+    </div>
+    <!-- 위 상단바 끝 -->
+
+    <div>
+
+        <!-- 오른쪽 화면 이동 바 시작-->
+        <div style="text-align: right; position: absolute; right: 1rem;" class="btn-group-vertical">
+            <button onclick="location.href={% url 'kweat:filter' %}" type="button" class="btn btn-danger mb-1" style=" height: 6rem; width: 4rem;">
+                필터
+            </button>
+            <button onclick="location.href={% url 'kweat:roulette' %}" type="button" class="btn btn-danger" style=" height: 6rem; width: 4rem;">
+                룰렛
+            </button>
+        </div>
+        <!-- 오른쪽 화면 이동 바 끝-->
+
+        <div style="display:flex; max-width: 50rem; margin: auto; border: none; background-color: antiquewhite;">
+
+            <!-- 사진? 넣을 곳 시작-->
+            <div class="card border-danger mb-3" style="flex: 2; display: inline; margin-right: 3rem;">
+                <div class="card-body" style="height: 30rem; text-align: center; " >
+                    <span class="question" style="font-family:Ansungtangmyun-Bold; font-size: 2rem;"></span>
+
+                    <img src="{%static 'img/KWeat.jpg'%}" style="max-width: 82%; height : auto; margin: auto;
+    display: block;">
+                </div>
+            </div>
+            <!-- 사진? 넣을 곳 끝-->
+            <div style="flex: 1;">
+                <div class="card border-danger" style="height: 20%;">
+                        <span class="answer" style="font-family:Ansungtangmyun-Bold; font-size: 1.8rem; text-align: center"></span>
+                        <span class="suggestion" style="font-family: PuradakGentleGothicR; font-size: 1rem; text-align: center"></span>
+                </div>
+                <br><br>
+                <div class="mb-3" style="text-align: center;">
+                    <button type="button" class="btn btn-danger" style="width: 70%; font-family: Ansungtangmyun-Bold;" onclick="question_reset();suggestion_innerText_reset();">다시하기</button>
+                </div>
+                <div style="height: 26%;">
+                    <!--여긴 빈공간-->
+
+                </div>
+                <div class="mb-3" style="text-align: center;">
+                    <button type="button" class="btn btn-danger" style="width: 70%; font-family: Ansungtangmyun-Bold;" onclick="yes()">네</button>
+                </div>
+                <!--
+                <div class="mb-3" style="text-align: center;">
+                    <button type="button" class="btn btn-danger" style="width: 70%; font-family: 'BMHANNAPro';">잘 모르겟어요?</button>
+                </div>
+                -->
+                <div class="mb-3" style="text-align: center;">
+                    <button type="button" class="btn btn-danger" style="width: 70%; font-family: Ansungtangmyun-Bold;" onclick="no()">아니요</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+<script>
+let question = document.getElementsByClassName("question")[0];
+let answer = document.getElementsByClassName("answer")[0];
+let suggestion = document.getElementsByClassName("suggestion")[0];
+
+ let res = [
+            {% for i in res_object %}
+                {
+                    id: "{{ i.id }}",
+                    name: "{{ i.Res_name }}",
+                    category: "{{ i.category }}",
+                    distance: {{ i.distance }},
+                },
+            {% endfor %}
+        ]
+
+        let menu = [
+            {% for i in menu_object %}
+                {
+                    res_id: "{{ i.Res_id.id }}",
+                    id: "{{ i.id }}",
+                    Menu_name: "{{ i.Menu_name }}",
+                    price: "{{ i.price }}",
+                },
+            {% endfor %}
+        ]
+
+    let yes_call = 0;
+    let no_call = 0;
+    let question_num = 0;  // 첫 분기
+    let question_num_china = 0;
+    let question_num_japan = 0;
+    let question_num_korea = 0;
+    let question_num_street = 0;      // 분식
+    let question_num_nothing = 0;     // 아무거나
+
+    answer.innerText =  " 당신의 선택은..? "
+
+    twenty_mountain_start();
+
+function question_reset()
+{
+    yes_call = 0;
+    no_call = 0;
+    question_num = 0;  // 첫 분기
+    question_num_china = 0;
+    question_num_japan = 0;
+    question_num_korea = 0;
+    question_num_street = 0;      // 분식
+    question_num_nothing = 0;     // 아무거나
+
+    answer.innerText =  " 당신의 선택은..? "
+
+    twenty_mountain_start();
+
+}
+function suggestion_innerText_reset()
+{
+    suggestion.innerText =  "  ";
+}
+function  twenty_mountain_start()
+{
+    question.innerText = " 한식을 드시고 싶나요? ";
+    if (yes_call == 1)
+    {
+        question_num = 1;
+        twenty_mountain_korea();
+    }
+    else if(no_call == 1)
+    {
+        question_num = 2;
+        twenty_mountain_china();
+    }
+
+}
+function twenty_mountain_korea()
+{
+    if (question_num_korea == 0)
+    {
+        question.innerText = "매콤한 음식이 드시고 싶으신가요?";
+    }
+    else if (question_num_korea == 1)
+    {
+        question.innerText = "국물이 있는 음식을 드시고 싶나요? ";
+    }
+    else if (question_num_korea == 2)
+    {
+        question.innerText = "국물이 있는 음식을 드시고 싶나요?";
+    }
+    else if (question_num_korea == 3)
+    {
+        question.innerText = "고기를 드시고 싶나요?";
+    }
+    else if (question_num_korea == 4)
+    {
+        question.innerText = "고기를 드시고 싶나요?";
+    }
+    else if (question_num_korea == 5)
+    {
+        question.innerText = "면을 드시고 싶나요?";
+    }
+    else if (question_num_korea == 6)
+    {
+        question.innerText = "다양한 재료가 들어간 음식은 어떠신가요?";
+    }
+    else if (question_num_korea == 7)
+    {
+        question.innerText = "닭고기 어떠세요?";
+    }
+    else if (question_num_korea == 8)
+    {
+        question.innerText = "밥 말아먹는거 좋아하세요?";
+    }
+    else if (question_num_korea == 9)
+    {
+        question.innerText = "감사합니다.";
+        answer.innerText = "제육볶음";
+        suggestion.innerText = "식당 : 김밥천국, 뚝배기";
+    }
+    else if (question_num_korea == 10)
+    {
+        question.innerText = "감사합니다.";
+        answer.innerText = "아구찜";
+        suggestion.innerText = "식당 : 여자만아구찜 ";
+    }
+    else if (question_num_korea == 11)
+    {
+        question.innerText = "감사합니다.";
+        answer.innerText = "칼국수";
+        suggestion.innerText = "식당 : 꽃제비칼국수, 천년초칼국수, 끝집";
+    }
+    else if (question_num_korea == 12)
+    {
+        question.innerText = "감사합니다.";
+        answer.innerText = "국밥";
+        suggestion.innerText = "식당 : 더 진국, 큰맘할매순대국";
+    }
+    else if (question_num_korea == 13)
+    {
+        question.innerText = "비벼먹는걸 좋아하시나요?";
+    }
+    else if (question_num_korea == 14)
+    {
+        question.innerText = "감사합니다.";
+        answer.innerText  = "덮밥";
+        suggestion.innerText = "식당 : 밥은화, 마루";
+    }
+    else if (question_num_korea == 15)
+    {
+        question.innerText = "감사합니다.";
+        answer.innerText  = "닭볶음탕";
+        suggestion.innerText = "식당 : 꽃제비칼국수";
+    }
+    else if (question_num_korea == 16)
+    {
+        question.innerText = "감사합니다.";
+        answer.innerText  = "뼈해장국";
+        suggestion.innerText = "식당 : 더진국, 큰맘할매순대국";
+    }
+    else if (question_num_korea == 17)
+    {
+        question.innerText = "감사합니다.";
+        answer.innerText  = "부대찌개";
+        suggestion.innerText = "식당 : 놀부 부대찌개, 이층집";
+    }
+    else if (question_num_korea == 18)
+    {
+        question.innerText = "감사합니다.";
+        answer.innerText  = "라면";
+        suggestion.innerText = "식당 : 김밥천국, 싸다김밥";
+    }
+    else if (question_num_korea == 19)
+    {
+        question.innerText = "감사합니다.";
+        answer.innerText  = "비빔밥";
+        suggestion.innerText = "식당 : 후문식당, 본죽&비빔밥";
+    }
+    else if (question_num_korea == 20)
+    {
+        question.innerText = "감사합니다.";
+        answer.innerText  ="김밥";
+        suggestion.innerText = "식당 : 싸다김밥, 김밥천국";
+    }
+
+}
+function twenty_mountain_china()
+{
+
+
+    if (question_num_china == 0)
+    {
+        question.innerText = " 중식을 드시고 싶나요? ";
+        if(no_call >= 2)
+        {
+            question_num = 3;
+            twenty_mountain_japan();
+        }
+    }
+    else if (question_num_china == 1)
+    {
+        question.innerText = "국물이 있는 음식을 드시고 싶나요? ";
+    }
+    else if (question_num_china == 2)
+    {
+        question.innerText = "면을 드시고 싶나요?";
+    }
+    else if (question_num_china == 3)
+    {
+        question.innerText = "튀김을 드시고 싶나요?";
+    }
+    else if (question_num_china == 4)
+    {
+        question.innerText = "감사합니다.";
+        answer.innerText  = "짬뽕";
+        suggestion.innerText = "식당 : 미식성, 친친";
+    }
+    else if (question_num_china == 5)
+    {
+        question.innerText = "감사합니다.";
+        answer.innerText  = "짬뽕밥";
+        suggestion.innerText = "식당 : 미식성, 친친";
+    }
+    else if (question_num_china == 6)
+    {
+        question.innerText = "고기를 드시고 싶나요?";
+    }
+    else if (question_num_china == 7)
+    {
+        question.innerText = "면을 드시고 싶나요?";
+    }
+    else if (question_num_china == 8)
+    {
+        question.innerText = "감사합니다.";
+        answer.innerText  ="탕수육";
+        suggestion.innerText = "식당 : 미식성, 친친";
+    }
+    else if (question_num_china == 9)
+    {
+        question.innerText = "감사합니다.";
+        answer.innerText = "깐풍기";
+        suggestion.innerText = "식당 : 미식성, 친친";
+    }
+}
+function twenty_mountain_japan()
+{
+    if (question_num_japan == 0)
+    {
+        question.innerText = " 일식을 드시고 싶나요? ";
+        if(no_call >= 3)
+        {
+            question_num = 4;
+            twenty_mountain_street()
+        }
+    }
+    else if (question_num_japan == 1)
+    {
+        question.innerText = "튀김을 좋아하시나요?";
+    }
+    else if (question_num_japan == 2)
+    {
+        question.innerText = "감사합니다.";
+        answer.innerText  = "돈까스";
+        suggestion.innerText = "식당 : 카츠3.3, 윤스쿡";
+    }
+    else if (question_num_japan == 3)
+    {
+        question.innerText = "비벼먹는걸 좋아하시나요?";
+    }
+    else if (question_num_japan == 4)
+    {
+        question.innerText = "감사합니다.";
+        answer.innerText  = "회덮밥";
+        suggestion.innerText = "식당 : 푸른스시";
+    }
+    else if (question_num_japan == 5)
+    {
+        question.innerText = "감사합니다.";
+        answer.innerText  = "초밥";
+        suggestion.innerText = "식당 : 푸른스시";
+    }
+
+}
+function twenty_mountain_street()
+{
+
+    if (question_num_street == 0) {
+        question.innerText = " 분식을 드시고 싶나요? ";
+        if (no_call >= 4) {
+            question_num = 5;
+            twenty_mountain_nothing()
+        }
+    } else if (question_num_street == 1) {
+        question.innerText = "매운음식을 좋아하시나요?";
+    } else if (question_num_street == 2) {
+        question.innerText = "국물이 있는 음식을 드시고 싶나요?";
+    } else if (question_num_street == 3) {
+        question.innerText = "쌀이 들어간 음식 좋아하시나요?";
+    } else if (question_num_street == 4) {
+        question.innerText = "감사합니다.";
+        answer.innerText = "라면";
+        suggestion.innerText = "식당 : 김밥천국, 싸다김밥";
+    } else if (question_num_street == 5) {
+        question.innerText = "감사합니다.";
+        answer.innerText = "떡볶이";
+        suggestion.innerText = "식당 : 신전떡볶이";
+    } else if (question_num_street == 6) {
+        question.innerText = "감사합니다.";
+        answer.innerText = "김밥";
+        suggestion.innerText = "식당 : 김밥천국, 싸다김밥";
+    } else if (question_num_street == 7) {
+        question.innerText = "밀가루 들어간 음식이 떙기시나요?";
+    } else if (question_num_street == 8) {
+        question.innerText = "감사합니다.";
+        answer.innerText = "튀김";
+        suggestion.innerText = "식당 : 신전떡볶이, 싸다김밥";
+    } else if (question_num_street == 9) {
+        question.innerText = "감사합니다.";
+        answer.innerText = "순대";
+        suggestion.innerText = "식당 : 신전떡볶이, 싸다김밥";
+    }
+}
+    function twenty_mountain_nothing()
+    {
+        if (question_num_nothing == 0) {
+            question.innerText = "고깃집 어떠세요?";
+        } else if (question_num_nothing == 1) {
+            question.innerText = "돼지고기 어떠신가요?";
+        } else if (question_num_nothing == 2) {
+            question.innerText = "감사합니다.";
+            answer.innerText = "치킨";
+            suggestion.innerText = "식당 : 치킨플러스, 썬더치킨";
+        } else if (question_num_nothing == 3) {
+            question.innerText = "감사합니다.";
+            answer.innerText = "돼지고기";
+            suggestion.innerText = "식당 : 화로상회";
+        } else if (question_num_nothing == 4) {
+            question.innerText = "감사합니다.";
+            answer.innerText = "소고기";
+            suggestion.innerText = "식당 : 맛나고소고깃간";
+        }
+
+    }
+
+    function yes()
+    {
+        yes_call = yes_call + 1;
+
+        if (question_num == 0) {
+            twenty_mountain_start();
+        }
+        else if (question_num == 1)   // 한식
+        {
+            if (question_num_korea == 0) {
+                question_num_korea = 1;
+            } else if (question_num_korea == 1) {
+                question_num_korea = 3;
+            } else if (question_num_korea == 2) {
+                question_num_korea = 5;
+            } else if (question_num_korea == 3) {
+                question_num_korea = 5;
+            } else if (question_num_korea == 4) {
+                question_num_korea = 9;
+            } else if (question_num_korea == 5) {
+                question_num_korea = 11;
+            } else if (question_num_korea == 6) {
+                question_num_korea = 13;
+            } else if (question_num_korea == 7) {
+                question_num_korea = 15;
+            } else if (question_num_korea == 8) {
+                question_num_korea = 17;
+            } else if (question_num_korea == 13) {
+                question_num_korea = 19;
+            }
+            twenty_mountain_korea();
+        }
+        else if (question_num == 2) {
+            if (question_num_china == 0) {
+                question_num_china = 1;
+            } else if (question_num_china == 1) {
+                question_num_china = 2;
+            } else if (question_num_china == 2) {
+                question_num_china = 4;
+            } else if (question_num_china == 3) {
+                question_num_china = 6;
+            } else if (question_num_china == 6) {
+                question_num_china = 8;
+            } else if (question_num_china == 7) {
+                question_num_china = 10;
+            }
+            twenty_mountain_china();
+        }
+        else if (question_num == 3) {
+            if (question_num_japan == 0) {
+                question_num_japan = 1;
+            } else if (question_num_japan == 1) {
+                question_num_japan = 2;
+            } else if (question_num_japan == 3) {
+                question_num_japan = 4;
+            }
+            twenty_mountain_japan();
+        }
+        else if (question_num == 4) {
+            if (question_num_street == 0) {
+                question_num_street = 1;
+            } else if (question_num_street == 1) {
+                question_num_street = 2;
+            } else if (question_num_street == 2) {
+                question_num_street = 4;
+            } else if (question_num_street == 3) {
+                question_num_street = 6;
+            } else if (question_num_street == 7) {
+                question_num_street = 8;
+            }
+            twenty_mountain_street();
+        } else if (question_num == 5) {
+            if (question_num_nothing == 0) {
+                question_num_nothing = 1;
+            } else if (question_num_nothing == 1) {
+                question_num_nothing = 3;
+            }
+            twenty_mountain_nothing();
+        }
+    }
+
+    function no() {
+        no_call = no_call + 1;
+
+        if (question_num == 0) {
+            twenty_mountain_start();
+        } else if (question_num == 1)   // 한식
+        {
+            if (question_num_korea == 0) {
+                question_num_korea = 2;
+            } else if (question_num_korea == 1) {
+                question_num_korea = 4;
+            } else if (question_num_korea == 2) {
+                question_num_korea = 6;
+            } else if (question_num_korea == 3) {
+                question_num_korea = 8;
+            } else if (question_num_korea == 4) {
+                question_num_korea = 10;
+            } else if (question_num_korea == 5) {
+                question_num_korea = 12;
+            } else if (question_num_korea == 6) {
+                question_num_korea = 14;
+            } else if (question_num_korea == 7) {
+                question_num_korea = 16;
+            } else if (question_num_korea == 8) {
+                question_num_korea = 18;
+            } else if (question_num_korea == 13) {
+                question_num_korea = 20;
+            }
+            twenty_mountain_korea();
+        }
+        else if (question_num == 2) {
+
+            if (question_num_china == 1) {
+                question_num_china = 3;
+            } else if (question_num_china == 2) {
+                question_num_china = 5;
+            } else if (question_num_china == 3) {
+                question_num_china = 7;
+            } else if (question_num_china == 6) {
+                question_num_china = 9;
+            } else if (question_num_china == 7) {
+                question_num_china = 11;
+            }
+            twenty_mountain_china();
+        } else if (question_num == 3) {
+             if (question_num_japan == 0) {
+                 if(no_call >= 3)
+                 {
+                     question_num = 4;
+                     twenty_mountain_street();
+                 }
+                 else
+                     question_num_japan = 1;
+            } else if (question_num_japan == 1) {
+                question_num_japan = 3;
+            } else if (question_num_japan == 3) {
+                question_num_japan = 5;
+            }
+            twenty_mountain_japan();
+        } else if (question_num == 4) {
+            if (question_num_street == 0) {
+                if(no_call >= 4)
+                 {
+                     question_num = 5;
+                     twenty_mountain_nothing();
+                 }
+                else
+                question_num_street = 1;
+            } else if (question_num_street == 1) {
+                question_num_street = 3;
+            } else if (question_num_street == 2) {
+                question_num_street = 5;
+            } else if (question_num_street == 3) {
+                question_num_street = 7;
+            } else if (question_num_street == 7) {
+                question_num_street = 9;
+            }
+            twenty_mountain_street();
+        } else if (question_num == 5) {
+            if (question_num_nothing == 0) {
+                question_num_nothing = 2;
+            } else if (question_num_nothing == 1) {
+                question_num_nothing = 4;
+            }
+            twenty_mountain_nothing();
+        }
+    }
+
+</script>
+
+{% endblock %}
