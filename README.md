@@ -76,5 +76,5 @@
      
 ## 5. License
 
-Oneul-mwo-meok-eul-kwang is licensed under the 2-Clause BSD License
-자세한 사항은 'LICENSE' 파일을 참고하시길 바랍니다.
+    Oneul-mwo-meok-eul-kwang is licensed under the 2-Clause BSD License
+    자세한 사항은 'LICENSE' 파일을 참고하시길 바랍니다.
