@@ -69,11 +69,12 @@
 </table>
 
 ### Contact
-     사이트를 이용하면서 문의사항이 있거나 추가 개발에 관해 문의할 것이 있는 경우 아래의 이메일로 연락바랍니다.
+
+사이트를 이용하면서 문의사항이 있거나 추가 개발에 관해 문의할 것이 있는 경우 아래의 이메일로 연락바랍니다.
 > #### *<u>이메일</u>* : <chleogks9808@kw.ac.kr>
      
      
 ## 5. License
 
-     ### Oneul-mwo-meok-eul-kwang is licensed under the 2-Clause BSD License
+Oneul-mwo-meok-eul-kwang is licensed under the 2-Clause BSD License
 
